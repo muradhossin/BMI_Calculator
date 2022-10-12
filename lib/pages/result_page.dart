@@ -1,90 +1,129 @@
+import 'package:bmi_calculator/data/bmi_data_generator.dart';
+import 'package:bmi_calculator/pages/home_page.dart';
+import 'package:bmi_calculator/provider/bmi_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:provider/provider.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({Key? key}) : super(key: key);
+  const ResultPage({
+    Key? key,
+  }) : super(key: key);
 
   static const String routeName = '/result';
 
   @override
   Widget build(BuildContext context) {
+    final arguments = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
+    var bmi = double.parse(arguments['bmi']);
     return Scaffold(
       appBar: AppBar(
         title: Text('Body Mass Index (BMI) Calculator'),
       ),
-      body: Column(
-        children: [
-          CircularPercentIndicator(
-            percent: 0.8,
-            radius: 90,
-            lineWidth: 25,
-            header: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Your BMI is',
-                style: Theme.of(context).textTheme.headline4,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CircularPercentIndicator(
+              percent: (bmi / 100),
+              radius: 90,
+              lineWidth: 25,
+              header: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Your BMI is',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+              ),
+              animation: true,
+              progressColor: Theme.of(context).primaryColor,
+              backgroundColor: Color(0xFFF1F4F8),
+              center: Text(
+                '${bmi.toStringAsFixed(2)} (kg/m²)',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 20,
+                ),
               ),
             ),
-            animation: true,
-            progressColor: Theme.of(context).primaryColor,
-            backgroundColor: Color(0xFFF1F4F8),
-            center: Text(
-              '80.24 kg/m²',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                color: Theme.of(context).primaryColor,
-                fontSize: 20,
-              ),
+            SizedBox(
+              height: 20,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'You are',
-                    style: Theme.of(context).textTheme.headline4,
+
+                Text(
+                  'You are ',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w100,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 0, top: 8, right: 8, bottom: 8),
+                Flexible(
                   child: Text(
-                    'Normal',
+                    BmiDataGenerator.generateStatus(bmi),
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ],
             ),
-          ),
-          Column(
-            children: [
-              ListTile(
-                title: Text(
-                  'Category',
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+            SizedBox(
+              height: 10,
+            ),
+            Column(
+              children: [
+                ListTile(
+                  title: Text(
+                    'Category',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  trailing: Text(
+                    'BMI (kg/m²)',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
-                trailing: Text(
-                  'BMI (kg/m²)',
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                ...List.generate(
+                  BmiDataGenerator.bmiTableMap.length,
+                  (index) => ListTile(
+                    title:
+                        Text(BmiDataGenerator.bmiTableMap.keys.toList()[index]),
+                    trailing: Text(
+                        BmiDataGenerator.bmiTableMap.values.toList()[index]),
+                    tileColor: BmiDataGenerator.generateStatus(bmi) ==
+                            BmiDataGenerator.bmiTableMap.keys.toList()[index]
+                        ? Colors.blue
+                        : null,
                   ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.redAccent)),
+                onPressed: () {
+                  Navigator.pushNamed(context, HomePage.routeName);
+                },
+                child: Text(
+                  'Clear',
                 ),
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

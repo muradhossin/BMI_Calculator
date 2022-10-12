@@ -3,22 +3,13 @@ import 'package:bmi_calculator/provider/bmi_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   static const String routeName = '/home';
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
-    double bmi = 0.0;
-    TextEditingController _weightControler = TextEditingController();
-    TextEditingController _feetControler = TextEditingController();
-    TextEditingController _inchControler = TextEditingController();
+    final provider = Provider.of<BmiProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -50,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                     height: 51,
                     child: TextField(
                       keyboardType: TextInputType.number,
-                      controller: _weightControler,
+                      controller: provider.weightControler,
                       decoration: InputDecoration(
                         hintText: 'Enter weight',
                         border: OutlineInputBorder(
@@ -105,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                     height: 51,
                     child: TextField(
                       keyboardType: TextInputType.number,
-                      controller: _feetControler,
+                      controller: provider.feetControler,
                       decoration: InputDecoration(
                         hintText: 'Enter feet',
                         border: OutlineInputBorder(
@@ -142,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                     height: 51,
                     child: TextField(
                       keyboardType: TextInputType.number,
-                      controller: _inchControler,
+                      controller: provider.inchControler,
                       decoration: InputDecoration(
                         hintText: 'Enter inch',
                         border: OutlineInputBorder(
@@ -184,13 +175,8 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: MaterialStatePropertyAll(Colors.blue),
                   ),
                   onPressed: () {
-                    var weight = double.parse(_weightControler.text);
-                    var feet = double.parse(_feetControler.text);
-                    var inch = double.parse(_inchControler.text);
-                    var meter = (feet * 0.3048) + (inch * 0.0254);
-                    bmi = (weight) / (meter * meter);
-                    Navigator.pushNamed(context, ResultPage.routeName,
-                        arguments: {'bmi': bmi.toString()});
+                    provider.bmiCalculation();
+                    Navigator.pushNamed(context, ResultPage.routeName);
                   },
                   child: Text(
                     'Calculate',
@@ -203,15 +189,7 @@ class _HomePageState extends State<HomePage> {
                   style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.blue)),
                   onPressed: () {
-                    setState(() {
-                      double bmi = 0.0;
-                      TextEditingController _weightControler =
-                          TextEditingController();
-                      TextEditingController _feetControler =
-                          TextEditingController();
-                      TextEditingController _inchControler =
-                          TextEditingController();
-                    });
+                    provider.clearField();
                   },
                   child: Text(
                     'Clear',

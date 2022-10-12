@@ -14,9 +14,7 @@ class ResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final arguments = (ModalRoute.of(context)?.settings.arguments ??
-        <String, dynamic>{}) as Map;
-    var bmi = double.parse(arguments['bmi']);
+    final provider = Provider.of<BmiProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Body Mass Index (BMI) Calculator'),
@@ -25,7 +23,7 @@ class ResultPage extends StatelessWidget {
         child: Column(
           children: [
             CircularPercentIndicator(
-              percent: (bmi / 100),
+              percent: (provider.bmi / 100),
               radius: 90,
               lineWidth: 25,
               header: Padding(
@@ -39,7 +37,7 @@ class ResultPage extends StatelessWidget {
               progressColor: Theme.of(context).primaryColor,
               backgroundColor: Color(0xFFF1F4F8),
               center: Text(
-                '${bmi.toStringAsFixed(2)} (kg/m²)',
+                '${provider.bmi.toStringAsFixed(2)} (kg/m²)',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   color: Theme.of(context).primaryColor,
@@ -63,7 +61,7 @@ class ResultPage extends StatelessWidget {
                 ),
                 Flexible(
                   child: Text(
-                    BmiDataGenerator.generateStatus(bmi),
+                    BmiDataGenerator.generateStatus(provider.bmi),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -102,7 +100,7 @@ class ResultPage extends StatelessWidget {
                         Text(BmiDataGenerator.bmiTableMap.keys.toList()[index]),
                     trailing: Text(
                         BmiDataGenerator.bmiTableMap.values.toList()[index]),
-                    tileColor: BmiDataGenerator.generateStatus(bmi) ==
+                    tileColor: BmiDataGenerator.generateStatus(provider.bmi) ==
                             BmiDataGenerator.bmiTableMap.keys.toList()[index]
                         ? Colors.blue
                         : null,
@@ -115,7 +113,9 @@ class ResultPage extends StatelessWidget {
               child: ElevatedButton(
                 style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.redAccent)),
                 onPressed: () {
+                  provider.clearField();
                   Navigator.pushNamed(context, HomePage.routeName);
+
                 },
                 child: Text(
                   'Clear',

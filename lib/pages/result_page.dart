@@ -118,7 +118,7 @@ class ResultPage extends StatelessWidget {
 
                 },
                 child: Text(
-                  'Clear',
+                  'Calculate Again',
                 ),
               ),
             ),

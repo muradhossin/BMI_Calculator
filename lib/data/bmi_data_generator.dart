@@ -12,17 +12,17 @@ class BmiDataGenerator{
     String status = '';
     if(bmi < 16.0) {
       status = underWeightSevere;
-    } else if(bmi >=16.0 && bmi <= 16.9) {
+    } else if(bmi >=16.0 && bmi < 17.0) {
       status = underWeightModerate;
-    } else if(bmi >=17.0 && bmi <= 18.4) {
+    } else if(bmi >=17.0 && bmi < 18.50) {
       status = underWeightMild;
-    } else if(bmi >= 18.5 && bmi <= 24.9) {
+    } else if(bmi >= 18.50 && bmi < 25.0) {
       status = normal;
-    } else if(bmi >= 25.0 && bmi <= 29.9) {
+    } else if(bmi >= 25.0 && bmi < 30.0) {
       status = overweightPreObese;
-    } else if(bmi >= 30.0 && bmi <= 34.9) {
+    } else if(bmi >= 30.0 && bmi < 35.0) {
       status = overweightObese1;
-    } else if(bmi >= 35.0 && bmi <= 39.9) {
+    } else if(bmi >= 35.0 && bmi < 40.0) {
       status = overweightObese2;
     } else {
       status = overweightObese3;

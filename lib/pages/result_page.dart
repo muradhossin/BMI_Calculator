@@ -17,7 +17,7 @@ class ResultPage extends StatelessWidget {
     final provider = Provider.of<BmiProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Body Mass Index (BMI) Calculator'),
+        title: const Text('Body Mass Index (BMI) Calculator'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -35,7 +35,7 @@ class ResultPage extends StatelessWidget {
               ),
               animation: true,
               progressColor: Theme.of(context).primaryColor,
-              backgroundColor: Color(0xFFF1F4F8),
+              backgroundColor: const Color(0xFFF1F4F8),
               center: Text(
                 '${provider.bmi.toStringAsFixed(2)} (kg/m²)',
                 style: TextStyle(
@@ -45,14 +45,14 @@ class ResultPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
 
-                Text(
+                const Text(
                   'You are ',
                   style: TextStyle(
                     fontSize: 20,
@@ -62,7 +62,7 @@ class ResultPage extends StatelessWidget {
                 Flexible(
                   child: Text(
                     BmiDataGenerator.generateStatus(provider.bmi),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -70,12 +70,12 @@ class ResultPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Column(
               children: [
-                ListTile(
+                const ListTile(
                   title: Text(
                     'Category',
                     style: TextStyle(
@@ -117,7 +117,7 @@ class ResultPage extends StatelessWidget {
                   Navigator.pushNamed(context, HomePage.routeName);
 
                 },
-                child: Text(
+                child: const Text(
                   'Calculate Again',
                 ),
               ),

@@ -8,20 +8,21 @@ class HomePage extends StatelessWidget {
 
   static const String routeName = '/home';
 
+  @override
   Widget build(BuildContext context) {
     final provider = Provider.of<BmiProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Body Mass Index (BMI) Calculator'),
+        title: const Text('Body Mass Index (BMI) Calculator'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
-            children: [
+            children: const [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: Text(
                   'Weight in kg',
                   style: TextStyle(
@@ -42,7 +43,7 @@ class HomePage extends StatelessWidget {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       controller: provider.weightControler,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Enter weight',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.only(
@@ -59,24 +60,24 @@ class HomePage extends StatelessWidget {
                 child: Container(
                   height: 51,
                   width: 45,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(8),
                         bottomRight: Radius.circular(8)),
                     color: Colors.grey,
                   ),
-                  child: Center(child: Text('kg')),
+                  child: const Center(child: Text('kg')),
                 ),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
-            children: [
+            children: const [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: Text(
                   'Height in feet + Inch',
                   style: TextStyle(
@@ -97,7 +98,7 @@ class HomePage extends StatelessWidget {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       controller: provider.feetControler,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Enter feet',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.only(
@@ -114,16 +115,16 @@ class HomePage extends StatelessWidget {
                 child: Container(
                   height: 51,
                   width: 45,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(8),
                         bottomRight: Radius.circular(8)),
                     color: Colors.grey,
                   ),
-                  child: Center(child: Text('feet')),
+                  child: const Center(child: Text('feet')),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Flexible(
@@ -134,7 +135,7 @@ class HomePage extends StatelessWidget {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       controller: provider.inchControler,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Enter inch',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.only(
@@ -151,18 +152,18 @@ class HomePage extends StatelessWidget {
                 child: Container(
                   height: 51,
                   width: 45,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(8),
                         bottomRight: Radius.circular(8)),
                     color: Colors.grey,
                   ),
-                  child: Center(child: Text('inch')),
+                  child: const Center(child: Text('inch')),
                 ),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
@@ -171,14 +172,14 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(Colors.blue),
                   ),
                   onPressed: () {
                     provider.bmiCalculation();
                     Navigator.pushNamed(context, ResultPage.routeName);
                   },
-                  child: Text(
+                  child: const Text(
                     'Calculate',
                   ),
                 ),
@@ -186,12 +187,12 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.blue)),
                   onPressed: () {
                     provider.clearField();
                   },
-                  child: Text(
+                  child: const Text(
                     'Clear',
                     style: TextStyle(color: Colors.white),
                   ),
